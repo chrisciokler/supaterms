@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import '@mantine/core/styles.css';
+import '@mantine/nprogress/styles.css';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
-import { mtheme } from '@/theme/mantine';
 import { Header } from '@/components/layouts/Header';
 import { Footer } from '@/components/layouts/Footer';
+import { mtheme } from '@/theme/mantine';
+import { RouterTransition } from '@/components/layouts/RouterTransition';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,12 +22,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-mantine-color-scheme="dark">
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body className={inter.className}>
-        <MantineProvider theme={mtheme} defaultColorScheme='dark'>
+        <MantineProvider theme={mtheme} defaultColorScheme="dark" >
+          <RouterTransition />
           <Header />
           {children}
           <Footer />

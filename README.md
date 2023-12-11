@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SupaTerms README.md
 
-## Getting Started
+## What is SupaTerms?
 
-First, run the development server:
+SupaTerms is an innovative project aimed at providing a quick and efficient solution for website owners to generate Terms and Conditions, as well as Privacy Policies for their online platforms. Utilizing the power of artificial intelligence, SupaTerms offers a user-friendly interface that delivers personalized legal documents in a matter of seconds.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Website
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[SupaTerms](https://supaterms.com)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **User Authentication**: Secure login with Google and email, including a reliable email generation feature.
+- **User Interface**: Crafted using NextJS, Tailwind, and Mantine, providing a seamless and aesthetically pleasing user experience with rounded design elements.
+- **Supabase Database Integration**: A robust system managing users, their projects, associated documents, OpenAI tokens, and subscription messages.
+- **Cloudflare Workers**: Employing Cloudflare workers for smooth and secure OpenAI API connections.
 
-## Learn More
+## Design
 
-To learn more about Next.js, take a look at the following resources:
+- **Color Palette**: Supabase-inspired green and violet theme.
+- **Brand Aesthetics**: "Supa" in green, coupled with "Terms" in violet.
+- **Visuals**: Semi-rounded borders and support for dark mode.
+- **Animations**: Engaging UI animations inspired by cubapyme's design language.
+- **Footer Details**: Credits to @chrisciokler and endorsements by Supabase & OpenAI, with additional links and connections to AIWPA upon completion.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Inspiration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+SupaTerms is influenced by the designs and functionalities of various modern web applications, including:
 
-## Deploy on Vercel
+- [Mobbin](https://mobbin.com/browse/web/apps)
+- [Kittl](https://www.kittl.com/)
+- [Refero](https://refero.design/)
+- [Dark Mode Design](https://www.darkmodedesign.com/)
+- [Minimal Gallery](https://minimal.gallery/)
+- [Ideogram](https://ideogram.ai/login)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Landing Page**: The first interaction point for users to discover what SupaTerms has to offer.
+- **Auth Pages**: Including sign in, sign up, and password reset functionalities.
+- **Terms and Conditions Generator**: Streamlined process for creating terms and conditions tailored to the user's website needs.
+- **Privacy Policy Generator**: Customizable privacy policy creation tools.
+- **Projects Dashboard**: A central hub for users to manage and create new projects.
+- **Projects Documents**: An organized space for all documents linked to a particular project.
+- **Document Editor**: Where users can create, read, and modify documents, with the ability to request AI-generated clauses on demand.
+
+## Marketing Strategies
+
+1. **Demo Video**: An insightful showcase of how SupaTerms works to attract potential users.
+2. **Product Hunt Launch**: Introduce SupaTerms to a broader audience on Product Hunt.
+3. **Social Media Engagement**: Share updates and engage with the community on platforms like Twitter.
+4. **Email Campaign**: Reach out to existing AIWPA subscribers with information on SupaTerms' launch and features.
+
+---
+
+SupaTerms is proudly developed by @chrisciokler and powered by Supabase & OpenAI. Join our journey in redefining online legal documentation with the aid of advanced AI. Visit [AIWPA](#) for further insights and connections.
+
+*Please note that this README.md does not contain sensitive information as the project is public.*
