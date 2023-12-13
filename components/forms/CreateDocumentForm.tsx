@@ -29,7 +29,7 @@ export const CreateDocumentForm = () => {
       </Radio.Group>
 
       <div className='flex w-full items-end gap-4 justify-end mt-4'>
-        <Button variant='default'>Cancel</Button>
+        <Button variant='default' onClick={closeModal}>Cancel</Button>
         <Link href={"/" + value} shallow><Button onClick={closeModal} rightSection={<IconArrowRight size={18} />}>Continue</Button></Link>
       </div>
     </Stack>

@@ -1,5 +1,6 @@
 "use client"
-import { termsPolicyAssistant, termsPolicyTemplate } from '@/lib/termstemplate';
+import { Steps } from '@/components/Steps';
+import { privacyPolicyAssistant, privacyPolicyTemplate } from '@/lib/privacyTemplate';
 import { Title, Text, Button, Center, TagsInput, TextInput, Group, Card, Badge, SimpleGrid, Stack, Checkbox, Radio, Select, Space, MultiSelect, ActionIcon } from '@mantine/core'
 import { useForm } from '@mantine/form';
 import { IconArrowLeft, IconAt } from "@tabler/icons-react";
@@ -9,8 +10,7 @@ import { countries } from '@/constants';
 import { useRouter } from 'next/navigation';
 
 type Platform = 'website' | 'app';
-
-export type TermsProps = {
+export type PrivacyProps = {
   platform: Platform[];
   url: string;
   websitename: string;
@@ -19,36 +19,35 @@ export type TermsProps = {
   businessname: string;
   businessaddress: string;
   country: string;
+  informationCollected: string[];
   contactbyemail: { active: boolean; value: string };
   contactbywebsite: { active: boolean; value: string };
   contactbyphone: { active: boolean; value: string };
   contactbypostmail: { active: boolean; value: string };
-  createaccounts: 'Yes' | 'No';
+  trackingtools: 'Yes' | 'No';
   sendemails: 'Yes' | 'No';
-  uploadcontent: 'Yes' | 'No';
-  buygoods: 'Yes' | 'No';
-  subscriptions: 'Yes' | 'No';
-  refunds: 'Yes' | 'No';
-  refundschanges: 'Yes' | 'No';
-  refundstime: string;
-  refundsconditions: string[];
-  freetrials: 'Yes' | 'No';
-  freeplan: 'Yes' | 'No';
-  rights: 'Yes' | 'No';
-  feedbackcompensation: 'Yes' | 'No';
-  promotions: 'Yes' | 'No';
-  minors: 'Yes' | 'No';
+  showads: 'Yes' | 'No';
+  productsorservicespayment: 'Yes' | 'No';
+  remarketing: 'Yes' | 'No';
+  acceptspayments: 'Yes' | 'No';
+  under13info: 'Yes' | 'No';
 };
 
-const initialValues: TermsProps = {
+const initialValues: PrivacyProps = {
   platform: [],
   url: '',
   websitename: '',
   appname: '',
   country: '',
+  informationCollected: [],
   entity: 'business',
-  businessname: '',
-  businessaddress: '',
+  trackingtools: 'Yes',
+  sendemails: 'Yes',
+  showads: 'Yes',
+  productsorservicespayment: 'Yes',
+  remarketing: 'Yes',
+  acceptspayments: 'No',
+  under13info: 'Yes',
   contactbyemail: {
     active: false,
     value: ''
@@ -65,22 +64,10 @@ const initialValues: TermsProps = {
     active: false,
     value: ''
   },
-  createaccounts: 'Yes',
-  sendemails: 'Yes',
-  uploadcontent: 'Yes',
-  buygoods: 'Yes',
-  subscriptions: 'Yes',
-  rights: 'Yes',
-  feedbackcompensation: 'Yes',
-  promotions: 'Yes',
-  freetrials: 'No',
-  freeplan: 'No',
-  minors: 'No',
-  refunds: 'No',
-  refundstime: '',
-  refundschanges: 'No',
-  refundsconditions: []
+  businessname: '',
+  businessaddress: ''
 };
+
 
 const refundsdata = [
   { label: 'Product must be returned in its original packaging', value: 'Product must be returned in its original packaging' },
@@ -102,7 +89,7 @@ const BacktoDocsButton = () => {
   )
 }
 
-export function TermsOfUseGenerator() {
+export function PrivacyPolicyGenerator() {
   const stopConversationRef = useRef<boolean>(false);
   const form = useForm({ initialValues });
   const [refunds, setRefunds] = useState(refundsdata);
@@ -192,10 +179,10 @@ export function TermsOfUseGenerator() {
   );
 
   return (
-    <form onSubmit={form.onSubmit((values) => handleSubmit(termsPolicyTemplate(values)))}>
+    <form onSubmit={form.onSubmit((values) => handleSubmit(privacyPolicyTemplate(values)))}>
       <Stack className='w-full h-full max-w-[450px]'>
         <Group>
-          <h1 className='text-[30px] text-glow max-w-[750px] md:max-w-[280px] md:text-3xl font-extrabold '><BacktoDocsButton /> SupaTerms Terms of Use Policy</h1>
+          <h1 className='text-[30px] text-glow max-w-[750px] md:max-w-[280px] md:text-3xl font-extrabold '><BacktoDocsButton /> SupaTerms Privacy Policy</h1>
         </Group>
 
         <Checkbox.Group
@@ -217,15 +204,15 @@ export function TermsOfUseGenerator() {
             label="What is your website URL?"
             required
             type="url"
-            placeholder="https://supaterms.com"
+            placeholder="https://intellyverse.com"
             {...form.getInputProps('url')}
           />
         )}
         {form.values.platform.includes('website') && (
-          <TextInput label="What is your website name?" required placeholder="Supaterms" {...form.getInputProps('websitename')} />
+          <TextInput label="What is your website name?" required placeholder="Intellyverse" {...form.getInputProps('websitename')} />
         )}
         {form.values.platform.includes('app') && (
-          <TextInput label="What is your app name?" required placeholder="Supaterms" {...form.getInputProps('appname')} />
+          <TextInput label="What is your app name?" required placeholder="Intellyverse" {...form.getInputProps('appname')} />
         )}
 
         <Radio.Group
@@ -243,7 +230,7 @@ export function TermsOfUseGenerator() {
         </Radio.Group>
 
         {form.values.entity === 'business' && (
-          <TextInput label="What is your business name" required placeholder="Supaterms LLC" {...form.getInputProps('businessname')} />
+          <TextInput label="What is your business name" required placeholder="Intellyverse LLC" {...form.getInputProps('businessname')} />
         )}
 
         {form.values.entity === 'business' && (
@@ -264,154 +251,36 @@ export function TermsOfUseGenerator() {
           {...form.getInputProps('country')}
         />
 
-        <Radio.Group size="md" label="Can users create accounts?" withAsterisk {...form.getInputProps('createaccounts')}>
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
-
-        <Radio.Group
+        <Checkbox.Group
           size="md"
-          label="Can users create and/or upload content (i.e. text, images)?"
+          label="What kind of personal information do you collect from users?"
+          description="Select one or many"
           withAsterisk
-          {...form.getInputProps('uploadcontent')}
+          {...form.getInputProps('informationCollected')}
         >
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
+          <Stack mt="xs">
+            <Checkbox label="Email address" value="Email address" />
 
-        <Radio.Group size="md" label="Can users buy goods (products, items)?" withAsterisk {...form.getInputProps('buygoods')}>
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
+            <Checkbox label="First name and last name" value="First name and last name" />
 
-        <Radio.Group size="md" label="Do you offer subscription plans?" withAsterisk {...form.getInputProps('subscriptions')}>
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
+            <Checkbox label="Phone number" value="Phone number" />
 
-        {(form.values.subscriptions === 'Yes' || form.values.buygoods === 'Yes') && (
-          <Radio.Group size="md" label="Do you offer refunds?" withAsterisk {...form.getInputProps('refunds')}>
-            <Group mt="xs">
-              <Radio value="Yes" label="Yes" />
-              <Radio value="No" label="No" />
-            </Group>
-          </Radio.Group>
-        )}
+            <Checkbox label="Address, State, Province, ZIP/Postal code, City" value="Address, State, Province, ZIP/Postal code, City" />
 
-        {form.values.refunds === 'Yes' && (
-          <Select
-            label="How many days customers have to ask for a refund?"
-            description="Please note that you need to select a minimum of 14 days for EU-based businesses."
-            required
-            placeholder="14 days"
-            data={[
-              { label: '14 days', value: '14 days' },
-              { label: '30 days', value: '30 days' },
-              { label: '6 months', value: '6 months' },
-              { label: '1 year', value: '1 year' },
-              { label: 'lifetime', value: 'lifetime' }
-            ]}
-            {...form.getInputProps('refundstime')}
-          />
-        )}
+            <Checkbox
+              label="Social Media Profile information (i.e. Sign with Google, Sign In With Twitter)"
+              value="Social Media Profile information (i.e. Sign with Google, Sign In With Twitter)"
+            />
 
-        {form.values.refunds === 'Yes' && (
-          <Radio.Group size="md" label="Can customers exchange a product with a new one?" withAsterisk {...form.getInputProps('refundschanges')}>
-            <Group mt="xs">
-              <Radio value="Yes" label="Yes" />
-              <Radio value="No" label="No" />
-            </Group>
-          </Radio.Group>
-        )}
-
-        {form.values.refunds === 'Yes' && (
-          <TagsInput
-            label="What are the conditions that must be met to issue a refund?"
-            size="md"
-            description="You can add conditions more conditions by typing here"
-            required
-            clearable
-            // getCreateLabel={(query) => `+ Create ${query}`}
-            // onCreate={(query) => {
-            //   const item = { value: query, label: query };
-            //   setRefunds((current) => [...current, item]);
-            //   return item;
-            // }}
-            placeholder="Select conditions"
-            data={refunds}
-            {...form.getInputProps('refundstime')}
-          />
-        )}
-
-        {form.values.subscriptions === 'Yes' && (
-          <Radio.Group size="md" label="Do you offer free trials?" withAsterisk {...form.getInputProps('freetrials')}>
-            <Group mt="xs">
-              <Radio value="Yes" label="Yes" />
-              <Radio value="No" label="No" />
-            </Group>
-          </Radio.Group>
-        )}
-
-        {form.values.subscriptions === 'Yes' && (
-          <Radio.Group size="md" label="Do you offer free plans?" withAsterisk {...form.getInputProps('freeplan')}>
-            <Group mt="xs">
-              <Radio value="Yes" label="Yes" />
-              <Radio value="No" label="No" />
-            </Group>
-          </Radio.Group>
-        )}
-
-        <Radio.Group
-          size="md"
-          label="Do you want to make it clear that your own content & trademarks are your exclusive property?"
-          withAsterisk
-          {...form.getInputProps('rights')}
-        >
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
-
-        <Radio.Group
-          size="md"
-          label="If users provide you feedback & suggestions, do you want to use this feedback without compensation or credits given?"
-          withAsterisk
-          {...form.getInputProps('feedbackcompensation')}
-        >
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
-
-        <Radio.Group size="md" label="Do you plan to offer promotions, contests, sweepstakes?" withAsterisk {...form.getInputProps('promotions')}>
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
-
-        <Radio.Group size="md" label="Do you allow minors under 18 years to use the platform?" withAsterisk {...form.getInputProps('minors')}>
-          <Group mt="xs">
-            <Radio value="Yes" label="Yes" />
-            <Radio value="No" label="No" />
-          </Group>
-        </Radio.Group>
+            <Checkbox label="Others" value="Others" />
+          </Stack>
+        </Checkbox.Group>
 
         <Stack mt="xs">
           <Checkbox.Group
             size="md"
             required
-            label="How can users contact you for any questions regarding your Terms of Use Policy?"
+            label="How can users contact you for any questions regarding your Privacy Policy?"
             description="Select one or many"
             withAsterisk
           >
@@ -420,7 +289,7 @@ export function TermsOfUseGenerator() {
           <Stack mt="xs">
             <Stack>
               <Checkbox size="md" label="By email" checked={true} />
-              <TextInput required type="email" placeholder="terms@supaterms.com" {...form.getInputProps('contactbyemail.value')} />
+              <TextInput required type="email" placeholder="privacy@intellyverse.com" {...form.getInputProps('contactbyemail.value')} />
             </Stack>
 
             <Stack>
@@ -431,7 +300,7 @@ export function TermsOfUseGenerator() {
                 onChange={(i) => form.setFieldValue('contactbywebsite.active', i.currentTarget.checked)}
               />
               {form.values.contactbywebsite.active && (
-                <TextInput required type="url" placeholder="https://supaterms.com" {...form.getInputProps('contactbywebsite.value')} />
+                <TextInput required type="url" placeholder="https://intellyverse.com" {...form.getInputProps('contactbywebsite.value')} />
               )}
             </Stack>
 
@@ -465,6 +334,70 @@ export function TermsOfUseGenerator() {
             </Stack>
           </Stack>
         </Stack>
+
+        <Radio.Group
+          size="md"
+          label="Do you use tracking and/or analytics tools, such as Google Analytics?"
+          withAsterisk
+          {...form.getInputProps('trackingtools')}
+        >
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+
+        <Radio.Group size="md" label="Do you send emails to users?" withAsterisk {...form.getInputProps('sendemails')}>
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+
+        <Radio.Group size="md" label="Do you show ads?" withAsterisk {...form.getInputProps('showads')}>
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+
+        <Radio.Group size="md" label="Can users pay for products or services?" withAsterisk {...form.getInputProps('productsorservicespayment')}>
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+
+        <Radio.Group
+          size="md"
+          label="Do you use remarketing services for marketing & advertising purposes?"
+          withAsterisk
+          {...form.getInputProps('remarketing')}
+        >
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+
+        <Radio.Group size="md" label="Do you accept payments?" withAsterisk {...form.getInputProps('acceptspayments')}>
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+
+        <Radio.Group
+          size="md"
+          label="Do you collect information from kids under the age of 13?"
+          withAsterisk
+          {...form.getInputProps('under13info')}
+        >
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
 
         <Space h={100} />
       </Stack>
