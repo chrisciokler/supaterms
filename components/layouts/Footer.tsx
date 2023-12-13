@@ -1,35 +1,20 @@
 import Link from 'next/link';
-import { Group } from '@mantine/core';
+import { Group, Text, Anchor } from '@mantine/core';
 
 export const Footer = () => {
   return (
     <footer className='flex w-full flex-col items-center justify-center border-t border-dark-700 bg-background px-4 py-8 sm:py-6'>
-      {/* <Group
-        className='w-full sm:hidden'
-        align='center'
-        gap='sm'
-      >
-        <Link href='/privacy'>
-          <p className='font-semibold'>
-            <small>Privacy Policy</small>
-          </p>
-        </Link>
 
-        <Link href='/terms'>
-          <p className='font-semibold'>
-            <small>Terms of Use</small>
-          </p>
-        </Link>
-      </Group> */}
 
-      <Group
-        className='w-full max-w-[70rem]'
-        align='center'
-        justify='space-between'
+      <div
+        className='flex md:flex-col-reverse w-full max-w-[70rem] items-center justify-between'
       >
         <p className='font-semibold'>
           <small>&copy; 2023 SupaTerms</small>
         </p>
+
+        <Text size='xs' mt="sm" c="violet">Powered by <Anchor underline='always' href='https://supabase.com' target='_blank'>Supabase</Anchor> & <Anchor underline='always' href='https://openai.com' target='_blank'>OpenAI</Anchor></Text>
+
 
         <Group
           align='center'
@@ -46,7 +31,7 @@ export const Footer = () => {
         </Group>
 
 
-      </Group>
+      </div>
     </footer>
   );
 };

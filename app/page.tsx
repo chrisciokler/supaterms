@@ -1,5 +1,5 @@
 import { Steps } from '@/components/Steps';
-import { Title, Text, Button, Center, TextInput } from '@mantine/core'
+import { Title, Text, Button, Center, TextInput, Anchor } from '@mantine/core'
 import { IconAt } from "@tabler/icons-react";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         <Button variant="filled" mt="lg" className='shadow-xl shadow-gray-800'
           style={{ boxShadow: '0 0 150px 48px rgba(75,0,130,0.5)' }}>Start now - it is free</Button>
         <div>
-          <Text size='xs' mt="sm" c="violet">Powered by Supabase & OpenAI</Text>
+          <Text size='xs' mt="sm" c="violet">Powered by <Anchor underline='always' href='https://supabase.com' target='_blank'>Supabase</Anchor> & <Anchor underline='always' href='https://openai.com' target='_blank'>OpenAI</Anchor></Text>
         </div>
       </section>
 

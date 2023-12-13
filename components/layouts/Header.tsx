@@ -9,7 +9,8 @@ export const Header = () => (
       <Group>
         <div className='flex md:hidden gap-4'>
           <Link href="/docs" shallow ><Button variant='outline'>Docs</Button></Link>
-          <Button variant='outline'>Account</Button>
+          <Link href="/account" shallow ><Button variant='outline'>Account</Button></Link>
+
         </div>
 
         <Link href="/authenticate" shallow><Button variant="filled">Sign in</Button></Link>
