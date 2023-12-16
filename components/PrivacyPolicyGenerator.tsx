@@ -204,15 +204,15 @@ export function PrivacyPolicyGenerator() {
             label="What is your website URL?"
             required
             type="url"
-            placeholder="https://intellyverse.com"
+            placeholder="https://supaterms.com"
             {...form.getInputProps('url')}
           />
         )}
         {form.values.platform.includes('website') && (
-          <TextInput label="What is your website name?" required placeholder="Intellyverse" {...form.getInputProps('websitename')} />
+          <TextInput label="What is your website name?" required placeholder="supaterms" {...form.getInputProps('websitename')} />
         )}
         {form.values.platform.includes('app') && (
-          <TextInput label="What is your app name?" required placeholder="Intellyverse" {...form.getInputProps('appname')} />
+          <TextInput label="What is your app name?" required placeholder="supaterms" {...form.getInputProps('appname')} />
         )}
 
         <Radio.Group
@@ -230,7 +230,7 @@ export function PrivacyPolicyGenerator() {
         </Radio.Group>
 
         {form.values.entity === 'business' && (
-          <TextInput label="What is your business name" required placeholder="Intellyverse LLC" {...form.getInputProps('businessname')} />
+          <TextInput label="What is your business name" required placeholder="supaterms LLC" {...form.getInputProps('businessname')} />
         )}
 
         {form.values.entity === 'business' && (
@@ -289,7 +289,7 @@ export function PrivacyPolicyGenerator() {
           <Stack mt="xs">
             <Stack>
               <Checkbox size="md" label="By email" checked={true} />
-              <TextInput required type="email" placeholder="privacy@intellyverse.com" {...form.getInputProps('contactbyemail.value')} />
+              <TextInput required type="email" placeholder="privacy@supaterms.com" {...form.getInputProps('contactbyemail.value')} />
             </Stack>
 
             <Stack>
@@ -300,7 +300,7 @@ export function PrivacyPolicyGenerator() {
                 onChange={(i) => form.setFieldValue('contactbywebsite.active', i.currentTarget.checked)}
               />
               {form.values.contactbywebsite.active && (
-                <TextInput required type="url" placeholder="https://intellyverse.com" {...form.getInputProps('contactbywebsite.value')} />
+                <TextInput required type="url" placeholder="https://supaterms.com" {...form.getInputProps('contactbywebsite.value')} />
               )}
             </Stack>
 

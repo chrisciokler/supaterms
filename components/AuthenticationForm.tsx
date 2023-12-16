@@ -1,5 +1,4 @@
 "use client"
-import { useToggle, upperFirst } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
 import { create } from 'zustand'
 import {
@@ -23,9 +22,58 @@ import {
 } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
 import classes from './AuthenticationForm.module.css';
+import { useState } from 'react';
+import { api } from '@/apis';
+import { notifications } from '@mantine/notifications';
+import { Catpcha } from './Catpcha';
+import { useDidUpdate } from '@mantine/hooks';
+
+type InitialValues = {
+  email: string;
+  password: string;
+};
+
+const initialValues: InitialValues = {
+  email: '',
+  password: ''
+};
 
 export function ForgotPassword() {
   const toggle = useTypeStore((state: any) => state.toggle)
+  const [verify, setVerify] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const form = useForm({
+    initialValues,
+
+    validate: {
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email')
+    }
+  });
+
+  const submitHandler = async () => {
+    setLoading(true);
+    const { email } = form.values;
+    const response = await api.auth.sendPasswordRecoveryEmail(email);
+    if (response) successNotification();
+    if (!response) errorNotification()
+    setLoading(false);
+  };
+
+  const successNotification = () => {
+    notifications.show({
+      color: "green",
+      title: 'Success!!',
+      message: 'You will receive an email with a link to reset your password.',
+    })
+  }
+
+  const errorNotification = () => {
+    notifications.show({
+      color: "red",
+      title: 'Failure!!',
+      message: 'Something went wrong. Please try again.',
+    })
+  }
 
   return (
     <Container className='w-full' p={0}>
@@ -33,18 +81,38 @@ export function ForgotPassword() {
         Forgot password?
       </p>
 
-      <Paper mt="xl" className='w-full'>
-        <TextInput label="Your email" description="Enter your email to get a reset link" placeholder="me@email.com" required />
-        <Group justify="space-between" mt="lg" className={classes.controls}>
-          <Anchor c="dimmed" size="sm" className={classes.control} onClick={toggle}>
-            <Center inline>
-              <IconArrowLeft style={{ width: rem(12), height: rem(12) }} stroke={1.5} />
-              <Box ml={5}>Back to the login page</Box>
-            </Center>
-          </Anchor>
-          <Button className={classes.control}>Reset</Button>
-        </Group>
-      </Paper>
+      <form onSubmit={form.onSubmit(() => submitHandler())}>
+        <Paper mt="xl" className='w-full'>
+          <TextInput
+            label="Your email"
+            description="Enter your email to get a reset link"
+            placeholder="me@email.com"
+            required
+            disabled={loading}
+            {...form.getInputProps('email')}
+            classNames={{ label: 'capitalize' }}
+          />
+
+          <div className="w-full items-center justify-center">
+            <Catpcha
+              onError={() => console.log('error')}
+              onVerify={() => setVerify(true)}
+              onLoad={() => console.log('load')}
+              onExpire={() => console.log('expired')}
+            />
+          </div>
+
+          <Group justify="space-between" mt="lg" className={classes.controls}>
+            <Anchor c="dimmed" size="sm" className={classes.control} onClick={toggle}>
+              <Center inline>
+                <IconArrowLeft style={{ width: rem(12), height: rem(12) }} stroke={1.5} />
+                <Box ml={5}>Back to the login page</Box>
+              </Center>
+            </Anchor>
+            <Button className={classes.control} type="submit" loading={loading} disabled={loading || !verify}>Reset</Button>
+          </Group>
+        </Paper>
+      </form>
     </Container>
   );
 }
@@ -89,21 +157,67 @@ const useTypeStore = create((set) => ({
 }))
 
 function Login(props: PaperProps) {
-  const type = useTypeStore((state: any) => state.type)
   const toggle = useTypeStore((state: any) => state.toggle)
+  const [verify, setVerify] = useState(false);
+  const [active, setActive] = useState(false);
+  const [loading, setLoading] = useState(false);
   const form = useForm({
-    initialValues: {
-      email: '',
-      name: '',
-      password: '',
-      terms: true,
-    },
+    initialValues,
 
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-      password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
-    },
+      password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters.' : null)
+    }
   });
+
+  const submitHandler = async () => {
+    setLoading(true);
+    const { email, password } = form.values;
+
+    const exists = await api.auth.checkIfEmailExists(email);
+    if (exists) {
+      const data = await api.auth.signInWithEmail({ email, password });
+      if (!data) errorNotification();
+      if (data && exists) successNotification('You have successfully signed in');
+    } else {
+      if (!exists) setActive(true);
+    }
+
+    setLoading(false);
+  };
+
+  const signUpAfterCaptcha = async () => {
+    setLoading(true);
+    const { email, password } = form.values;
+    const data = await api.auth.signUpWithEmail({ email, password });
+    if (!data) errorNotification();
+    if (data) successNotification('Thanks for Signing Up. You will receive an email with a link to verify your account.');
+    setLoading(false);
+  };
+
+  const successNotification = (message: string) => {
+    notifications.show({
+      color: "green",
+      title: 'Success!!',
+      message,
+    })
+  }
+
+  const errorNotification = () => {
+    notifications.show({
+      color: "red",
+      title: 'Failure!!',
+      message: 'Something went wrong. Please try again.',
+    })
+  }
+
+  const continueWithGoogle = async () => {
+    api.auth.signInWithGoogle();
+  };
+
+  useDidUpdate(() => {
+    if (verify) signUpAfterCaptcha();
+  }, [verify]);
 
   return (
     <Paper radius="md" {...props}>
@@ -112,31 +226,43 @@ function Login(props: PaperProps) {
       </p>
 
       <Group grow mb="md" mt="md">
-        <GoogleButton radius="xl">Google</GoogleButton>
+        <GoogleButton onClick={continueWithGoogle}>Google</GoogleButton>
       </Group>
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form onSubmit={form.onSubmit(() => { })}>
+      <form onSubmit={form.onSubmit(() => submitHandler())}>
         <Stack>
 
           <TextInput
             required
             label="Email"
             placeholder="me@email.com"
-            value={form.values.email}
-            onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
-            error={form.errors.email && 'Invalid email'}
+            {...form.getInputProps('email')}
           />
 
           <PasswordInput
             required
             label="Password"
             placeholder="Your password"
-            value={form.values.password}
-            onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-            error={form.errors.password && 'Password should include at least 6 characters'}
+            {...form.getInputProps('password')}
           />
+
+          {active && (
+            <div className="w-full items-center justify-center">
+              <Catpcha
+                onError={() => {
+                  setLoading(false);
+                  setActive(false);
+                  setVerify(false);
+                  errorNotification();
+                }}
+                onVerify={() => setVerify(true)}
+                onLoad={() => setLoading(true)}
+                onExpire={() => console.log('expired')}
+              />
+            </div>
+          )}
 
         </Stack>
 
@@ -146,10 +272,14 @@ function Login(props: PaperProps) {
               <Box ml={5}>Forgot password?</Box>
             </Center>
           </Anchor>
-          <Button type="submit" radius="xl">
+          <Button type="submit">
             Login
           </Button>
         </Group>
+
+        <Center mt="xl">
+          <Text c="dimmed" size='xs'>By signing in, you agree to our Terms of Service and Privacy Policy.</Text>
+        </Center>
       </form>
     </Paper>
   );

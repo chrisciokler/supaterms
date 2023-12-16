@@ -1,4 +1,5 @@
 "use client"
+import { CAPTCHA_KEY } from '@/constants';
 import Turnstile from 'react-turnstile';
 
 type CatpchaProps = {
@@ -10,5 +11,5 @@ type CatpchaProps = {
 };
 
 export function Catpcha(props: CatpchaProps) {
-  return <Turnstile sitekey="0x4AAAAAAAGCtuvmkTPdJD_c" {...props} theme="dark" className="flex items-center justify-center mt-4" />;
+  return <Turnstile sitekey={CAPTCHA_KEY} {...props} theme="dark" className="flex items-center justify-center mt-4" />;
 }

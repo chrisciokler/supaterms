@@ -196,3 +196,7 @@ export const countries = [
   { name: 'Zambia' },
   { name: 'Zimbabwe' }
 ];
+
+export const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'supa.com';
+export const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'esodiuhdpoihdpoih';
+export const CAPTCHA_KEY = process.env.NEXT_PUBLIC_CAPTCHA_KEY || 'esodiuhdpoihdpoih';

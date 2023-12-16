@@ -37,23 +37,23 @@ export const mtheme = createTheme({
   components: {
     Button: Button.extend({
       defaultProps: {
-        radius: 'xl',
+        radius: 'md',
         color: 'green'
       }
     }),
     TextInput: TextInput.extend({
       defaultProps: {
-        radius: 'xl'
+        radius: 'md'
       }
     }),
     ActionIcon: ActionIcon.extend({
       defaultProps: {
-        radius: 'xl'
+        radius: 'md'
       }
     }),
     PasswordInput: TextInput.extend({
       defaultProps: {
-        radius: 'xl'
+        radius: 'md'
       }
     })
   },
