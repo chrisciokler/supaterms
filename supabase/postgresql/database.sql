@@ -1,24 +1,31 @@
 
+CREATE TYPE doctype AS ENUM ('terms', 'privacy');
+
 drop table if exists docs;
 create table docs (
-  id uuid primary key REFERENCES auth.users(id) on delete cascade not null,
+  id uuid primary key default uuid_generate_v4(),
   user_id uuid REFERENCES auth.users(id) on DELETE CASCADE default auth.uid() not null,
   title text NOT NULL,
   description text,
-  content text
+  type doctype not null,
+  content text,
+  created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
 drop table IF EXISTS subscriptions;
 create table subscriptions (
-  id uuid primary key REFERENCES auth.users(id) on delete cascade not null,
-  email text unique NOT NULL
+  id uuid primary key default uuid_generate_v4(),
+  email text unique NOT NULL,
+  created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
 drop table IF EXISTS openaitoken;
 create table openaitoken (
-  id uuid primary key REFERENCES auth.users(id) on delete cascade not null,
+  id uuid primary key REFERENCES auth.users(id) on delete cascade default auth.uid() not null,
   user_id uuid REFERENCES auth.users(id) on DELETE CASCADE default auth.uid() not null,
-  token text NOT NULL
+  organization text NOT NULL,
+  token text NOT NULL,
+  created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
 create or replace function public.check_if_email_exists(_email text)

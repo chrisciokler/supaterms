@@ -11,6 +11,7 @@ import { mtheme } from '@/theme/mantine';
 import { RouterTransition } from '@/components/layouts/RouterTransition';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
+import { AppInitializer } from '@/components/layouts/AppInitializer';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,15 +31,17 @@ export default function RootLayout({
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body className={inter.className}>
-        <MantineProvider theme={mtheme} defaultColorScheme="dark" >
-          <Notifications />
-          <ModalsProvider>
-            <RouterTransition />
-            <Header />
-            {children}
-            <Footer />
-          </ModalsProvider>
-        </MantineProvider>
+        <AppInitializer>
+          <MantineProvider theme={mtheme} defaultColorScheme="dark" >
+            <Notifications />
+            <ModalsProvider>
+              <RouterTransition />
+              <Header />
+              {children}
+              <Footer />
+            </ModalsProvider>
+          </MantineProvider>
+        </AppInitializer>
       </body>
     </html>
   )

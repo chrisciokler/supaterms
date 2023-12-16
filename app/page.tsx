@@ -1,4 +1,5 @@
 import { Steps } from '@/components/Steps';
+import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
 import { Title, Text, Button, Center, TextInput, Anchor } from '@mantine/core'
 import { IconAt } from "@tabler/icons-react";
 
@@ -23,14 +24,7 @@ export default function Home() {
       <section className='flex flex-col min-h-screen items-center justify-center'>
         <h2 className='text-[60px] md:text-4xl font-extrabold text-glow'>Stay in the loop</h2>
         <p className='text-lg max-w-[500px] md:text-sm text-center mt-1 md:mt-4'>{`Don't miss out on my future free projects! Enter your email address below to receive updates straight to your inbox. No spam, just timely notifications about my free open-source releases!`}</p>
-        <TextInput
-          mt="xl"
-          className='w-full max-w-[350px] md:max-w-[280px]'
-          placeholder="Email"
-          leftSection={<IconAt size={18} />}
-          rightSectionWidth={92}
-          rightSection={<Button size='xs' variant="filled" >Subscribe</Button>}
-        />
+        <SubscriptionForm />
       </section>
 
     </main >

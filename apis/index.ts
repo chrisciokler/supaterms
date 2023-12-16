@@ -1,4 +1,5 @@
 import * as auth from './auth';
+import * as db from './db';
 
 export interface ApiResponse {
   ok: boolean;
@@ -7,5 +8,6 @@ export interface ApiResponse {
 }
 
 export const api = {
+  db,
   auth
 };
