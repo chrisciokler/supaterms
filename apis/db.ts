@@ -8,8 +8,8 @@ export const insertOpenAIToken = async (organization: string, token: string) => 
   }
   return data;
 };
-export const updateOpenAIToken = async (id: string, organization: string, token: string) => {
-  const { data } = await supabase.from('openaitoken').update({ token, organization }).eq('id', id).select();
+export const updateOpenAIToken = async (userid: string, organization: string, token: string) => {
+  const { data } = await supabase.from('openaitoken').update({ token, organization }).eq('user_id', userid).select();
   if (data) {
     localStorage.setItem('openaitoken', token);
   }
