@@ -30,21 +30,23 @@ export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
   const setAuth = useAuthStore(state => state.setAuth);
   const setOpenAiCredentials = useAuthStore(state => state.setOpenAiCredentials);
 
+  const manageUser = async (session: Session | null) => {
+    const data = await api.db.getOpenAIToken()
+    setAuth(session);
+    data && setOpenAiCredentials(data.token, data.organization);
+  }
+
   useEffect(() => {
     if (!window.ResizeObserver) install();
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      const data = await api.db.getOpenAIToken()
-      setAuth(session);
-      data && setOpenAiCredentials(data.token, data.organization);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      manageUser(session);
     });
 
     const {
       data: { subscription }
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      const data = await api.db.getOpenAIToken()
-      setAuth(session);
-      data && setOpenAiCredentials(data.token, data.organization);
+      manageUser(session);
     });
 
     return () => subscription.unsubscribe();

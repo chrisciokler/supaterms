@@ -272,7 +272,7 @@ function Login(props: PaperProps) {
               <Box ml={5}>Forgot password?</Box>
             </Center>
           </Anchor>
-          <Button type="submit">
+          <Button type="submit" loading={loading} disabled={loading}>
             Login
           </Button>
         </Group>
