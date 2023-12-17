@@ -42,17 +42,18 @@ export const SubscriptionForm = () => {
   }
 
   return (
-    <form onSubmit={form.onSubmit(() => submitHandler())}>
-      <TextInput
-        mt="xl"
-        required
-        className='w-full max-w-[350px] md:max-w-[280px]'
-        placeholder="Email"
-        {...form.getInputProps('email')}
-        leftSection={<IconAt size={18} />}
-        rightSectionWidth={90}
-        rightSection={<Button type="submit" size='xs' variant="filled" loading={loading} disabled={loading}>Subscribe</Button>}
-      />
+    <form onSubmit={form.onSubmit(() => submitHandler())} className='flex w-full'>
+      <div className='flex md:flex-col w-full gap-1 md:gap-3he align-center justify-center'>
+        <TextInput
+          required
+          className='w-full max-w-[350px] md:max-w-[100%]'
+          placeholder="Email"
+          {...form.getInputProps('email')}
+          leftSection={<IconAt size={18} />}
+          rightSectionWidth={90}
+        />
+        <Button type="submit" variant="filled" loading={loading} disabled={loading}>Subscribe</Button>
+      </div>
     </form>
   )
 

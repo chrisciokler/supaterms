@@ -38,22 +38,26 @@ export const mtheme = createTheme({
     Button: Button.extend({
       defaultProps: {
         radius: 'md',
-        color: 'green'
+        color: 'green',
+        size: 'lg'
       }
     }),
     TextInput: TextInput.extend({
       defaultProps: {
-        radius: 'md'
+        radius: 'md',
+        size: 'lg'
       }
     }),
     ActionIcon: ActionIcon.extend({
       defaultProps: {
-        radius: 'md'
+        radius: 'md',
+        size: 'lg'
       }
     }),
     PasswordInput: TextInput.extend({
       defaultProps: {
-        radius: 'md'
+        radius: 'md',
+        size: 'lg'
       }
     })
   },

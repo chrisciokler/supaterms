@@ -21,7 +21,7 @@ export default function Home() {
         <Steps />
       </section>
 
-      <section className='flex flex-col min-h-screen items-center justify-center'>
+      <section className='flex flex-col w-full min-h-screen items-center justify-center'>
         <h2 className='text-[60px] md:text-4xl font-extrabold text-glow'>Stay in the loop</h2>
         <p className='text-lg max-w-[500px] md:text-sm text-center mt-1 md:mt-4'>{`Don't miss out on my future free projects! Enter your email address below to receive updates straight to your inbox. No spam, just timely notifications about my free open-source releases!`}</p>
         <SubscriptionForm />

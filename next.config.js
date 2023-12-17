@@ -4,7 +4,8 @@ const nextConfig = {
   compress: true,
   swcMinify: true,
   outputFileTracing: true,
-  optimizeFonts: true
+  optimizeFonts: true,
+
 }
 
 module.exports = nextConfig
