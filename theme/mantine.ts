@@ -39,25 +39,25 @@ export const mtheme = createTheme({
       defaultProps: {
         radius: 'md',
         color: 'green',
-        size: 'lg'
+        size: 'md'
       }
     }),
     TextInput: TextInput.extend({
       defaultProps: {
         radius: 'md',
-        size: 'lg'
+        size: 'md'
       }
     }),
     ActionIcon: ActionIcon.extend({
       defaultProps: {
         radius: 'md',
-        size: 'lg'
+        size: 'md'
       }
     }),
     PasswordInput: TextInput.extend({
       defaultProps: {
         radius: 'md',
-        size: 'lg'
+        size: 'md'
       }
     })
   },
