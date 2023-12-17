@@ -127,62 +127,7 @@ export function TermsOfUseGenerator() {
 
       await generate(system, user)
 
-      // try {
-      //   const controller = new AbortController();
-      //   const response = await api.ai.AUTOCOMPLETION16K({ user, system }, controller);
 
-      //   if (!response.ok) {
-      //     toggle(false);
-      //     return;
-      //   }
-
-      //   const data = response.body;
-
-      //   if (!data) {
-      //     toggle(false);
-      //     return;
-      //   }
-
-      //   toggle(false);
-
-      //   const reader = data.getReader();
-      //   const decoder = new TextDecoder();
-      //   let done = false;
-      //   let startText = '';
-      //   let didHandleHeader = false;
-
-      //   typing(true);
-
-      //   while (!done) {
-      //     if (stopConversationRef.current === true) {
-      //       controller.abort();
-      //       done = true;
-      //       break;
-      //     }
-
-      //     const { value, done: doneReading } = await reader.read();
-      //     done = doneReading;
-      //     const chunkValue = decoder.decode(value);
-      //     if (!didHandleHeader) {
-      //       startText = startText + chunkValue;
-      //       if (startText.includes(STREAM_SEPARATOR)) {
-      //         const parts = startText.split(STREAM_SEPARATOR);
-
-      //         content = content + parts[1];
-      //         textResponse.value = content;
-      //         didHandleHeader = true;
-      //       }
-      //     } else {
-      //       content = content + chunkValue;
-      //       textResponse.value = content;
-      //     }
-      //   }
-      // } catch (e) {
-      //   console.error('Error', e);
-      // }
-
-      // toggle(false);
-      // typing(false);
     },
     [form.values]
   );
