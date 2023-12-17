@@ -10,7 +10,7 @@ export default function Home() {
 
       <section className='flex flex-col min-h-screen items-center justify-center'>
         <h1 className='text-[60px] text-glow max-w-[750px] md:max-w-[280px] md:text-5xl font-extrabold text-center'>Generate legal docs with AI in seconds.</h1>
-        <Link href="/docs">
+        <Link href="/docs" shallow>
           <Button
             variant="filled"
             mt="lg"

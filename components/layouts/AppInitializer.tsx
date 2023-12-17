@@ -45,19 +45,19 @@ export const AppInitializer = ({ children, auth }: { children: React.ReactNode, 
     }
 
     if (!session && pathname !== '/docs') {
-      router.replace('/authenticate')
+      router.replace('/')
     }
 
     if (!session && pathname !== '/account') {
-      router.replace('/authenticate')
+      router.replace('/')
     }
 
     if (!session && pathname !== '/terms') {
-      router.replace('/authenticate')
+      router.replace('/')
     }
 
     if (!session && pathname !== '/privacy') {
-      router.replace('/authenticate')
+      router.replace('/')
     }
 
   }

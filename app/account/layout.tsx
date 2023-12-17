@@ -15,7 +15,7 @@ export default async function AccountLayout({
 }) {
   const auth = getSRRAuth()
   if (!auth) {
-    redirect('/authenticate')
+    // redirect('/authenticate')
   }
 
   return (
