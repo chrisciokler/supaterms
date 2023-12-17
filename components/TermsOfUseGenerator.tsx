@@ -7,6 +7,7 @@ import { useState, useRef, useCallback } from "react";
 import { PhoneInput } from './PhoneInput';
 import { countries } from '@/constants';
 import { useRouter } from 'next/navigation';
+import { useDocGenerator } from '@/hooks/useDocGenerator';
 
 type Platform = 'website' | 'app';
 
@@ -105,13 +106,9 @@ const BacktoDocsButton = () => {
 export function TermsOfUseGenerator() {
   const stopConversationRef = useRef<boolean>(false);
   const form = useForm({ initialValues });
+  const { generate, isLoading } = useDocGenerator()
   const [refunds, setRefunds] = useState(refundsdata);
-  const [isloading, setLoading] = useState(false);
   const [istyping, setIsTyping] = useState(false);
-
-  const toggle = (value: boolean) => {
-    setLoading(value);
-  };
 
   const typing = (value: boolean) => {
     setIsTyping(value);
@@ -126,10 +123,9 @@ export function TermsOfUseGenerator() {
 
   const handleSubmit = useCallback(
     async (user: string) => {
-      // let content = '';
-      // const system = termsPolicyAssistant;
+      const system = termsPolicyAssistant;
 
-      // toggle(true);
+      await generate(system, user)
 
       // try {
       //   const controller = new AbortController();
@@ -469,7 +465,7 @@ export function TermsOfUseGenerator() {
         <Space h={100} />
       </Stack>
 
-      <Button pos="fixed" bottom={16} right={16} className='glow'>Generate Policy</Button>
+      <Button type='submit' pos="fixed" bottom={16} right={16} className='glow'>Generate Policy</Button>
     </form>
 
   )

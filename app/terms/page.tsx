@@ -1,9 +1,11 @@
-import { Steps } from '@/components/Steps';
+
 import { TermsOfUseGenerator } from '@/components/TermsOfUseGenerator';
 import { Title, Text, Button, Center, TextInput, Group, Card, Badge, SimpleGrid, Stack } from '@mantine/core'
 import { IconAt, IconBrain } from "@tabler/icons-react";
 
 export default function Terms() {
+
+
   return (
     <main className="flex min-h-screen w-full flex-col items-center px-16 md:py-2 md:px-4">
 
