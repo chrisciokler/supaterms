@@ -11,27 +11,39 @@ import { mtheme } from '@/theme/mantine';
 import { RouterTransition } from '@/components/layouts/RouterTransition';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
-import { AppInitializer } from '@/components/layouts/AppInitializer';
+import { AppInitializer, Auth } from '@/components/layouts/AppInitializer';
+import { cookies, headers } from 'next/headers'
+import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 
 const inter = Inter({ subsets: ['latin'] })
+
+export const getSRRAuth = () => {
+  const cookieStore = cookies();
+  const cookieAuth = cookieStore.get('auth');
+  const auth = (cookieAuth?.value ? JSON.parse(cookieAuth.value) : null) as Auth;
+  return auth;
+}
 
 export const metadata: Metadata = {
   title: 'SupaTerms',
   description: 'AI generated Privacy Policies and Terms & Conditions',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const auth = getSRRAuth()
+
   return (
     <html lang="en" data-mantine-color-scheme="dark">
       <head>
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body className={inter.className}>
-        <AppInitializer>
+        <AppInitializer auth={auth}>
           <MantineProvider theme={mtheme} defaultColorScheme="dark" >
             <Notifications />
             <ModalsProvider>

@@ -5,11 +5,11 @@ import { supabase } from '@/configs/supabase';
 import { setCookie } from 'cookies-next';
 import { create } from 'zustand';
 import { Session } from '@supabase/supabase-js';
-import { stat } from 'fs';
 import { api } from '@/apis';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 
-type Auth = Session | null
-type AuthStoreProps = {
+export type Auth = Session | null
+export type AuthStoreProps = {
   auth: Auth,
   setAuth: (auth: Auth) => void,
   openaitoken: string | null,
@@ -21,12 +21,16 @@ export const useAuthStore = create<AuthStoreProps>((set) => ({
   auth: null,
   openaitoken: null,
   openaiorg: null,
-  setAuth: (auth: Auth) => set(() => ({ auth })),
+  setAuth: (auth: Auth) => {
+    set(() => ({ auth }))
+    setCookie('auth', auth)
+  },
   setOpenAiCredentials: (openaitoken: string, openaiorg: string) => set(() => ({ openaitoken, openaiorg }))
 }));
 
 
-export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
+export const AppInitializer = ({ children, auth }: { children: React.ReactNode, auth?: Auth }) => {
+  const router = useRouter()
   const setAuth = useAuthStore(state => state.setAuth);
   const setOpenAiCredentials = useAuthStore(state => state.setOpenAiCredentials);
 
@@ -34,6 +38,28 @@ export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
     const data = await api.db.getOpenAIToken()
     setAuth(session);
     data && setOpenAiCredentials(data.token, data.organization);
+    const pathname = window.location.pathname;
+
+    if (session && pathname === '/authenticate') {
+      router.replace('/')
+    }
+
+    if (!session && pathname !== '/docs') {
+      router.replace('/authenticate')
+    }
+
+    if (!session && pathname !== '/account') {
+      router.replace('/authenticate')
+    }
+
+    if (!session && pathname !== '/terms') {
+      router.replace('/authenticate')
+    }
+
+    if (!session && pathname !== '/privacy') {
+      router.replace('/authenticate')
+    }
+
   }
 
   useEffect(() => {
