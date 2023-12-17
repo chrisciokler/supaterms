@@ -34,19 +34,14 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const credentials = await getUserOpenAICredentials(auth.access_token);
-  console.log('🚀 | file: route.ts:34 | POST | isAuthenticated:', credentials);
 
-  const openai = new OpenAI({ organization: credentials?.organization, apiKey: credentials?.token! });
+  const openai = new OpenAI({ apiKey: credentials?.token! });
 
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
     model: 'gpt-4-1106-preview',
     stream: true,
-    messages: messages,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 1,
-    presence_penalty: 1
+    messages: messages
   });
 
   // Convert the response into a friendly text-stream

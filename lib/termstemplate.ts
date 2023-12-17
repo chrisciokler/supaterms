@@ -2,7 +2,7 @@ import { TermsProps } from '@/components/TermsOfUseGenerator';
 import endent from 'endent';
 
 export const termsPolicyAssistant = endent`You are a legal expert. 
-  Generate a 2000 words complete, highly detailed and professional Terms & Conditions Policy using the questions and answers submitted by the user. 
+  Generate a complete, highly detailed and professional Terms & Conditions Policy using the questions and answers submitted by the user. 
   The policy must have 2000 words at minimum.
 `;
 

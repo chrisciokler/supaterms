@@ -2,7 +2,7 @@ import { PrivacyProps } from '@/components/PrivacyPolicyGenerator';
 import endent from 'endent';
 
 export const privacyPolicyAssistant = endent`You are a legal expert. 
-  Generate a 2000 words complete, highly detailed and professional Privacy and Cookies Policy using the questions and answers submitted by the user. 
+  Generate a complete, highly detailed and professional Privacy and Cookies Policy using the questions and answers submitted by the user. 
   The policy must have 2000 words at minimum. 
   Include provisions for GDPR, CCPA, CPRA complete text in the policy.
 `;
