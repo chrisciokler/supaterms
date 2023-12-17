@@ -1,3 +1,4 @@
+import { StartNowButton } from '@/components/StartNowButton';
 import { Steps } from '@/components/Steps';
 import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
 import { Title, Text, Button, Center, TextInput, Anchor } from '@mantine/core'
@@ -10,16 +11,7 @@ export default function Home() {
 
       <section className='flex flex-col min-h-screen items-center justify-center'>
         <h1 className='text-[60px] text-glow max-w-[750px] md:max-w-[280px] md:text-5xl font-extrabold text-center'>Generate legal docs with AI in seconds.</h1>
-        <Link href="/docs" shallow>
-          <Button
-            variant="filled"
-            mt="lg"
-            className='shadow-xl shadow-gray-800'
-            style={{ boxShadow: '0 0 150px 48px rgba(75,0,130,0.5)' }}
-          >
-            Start now - it is free
-          </Button>
-        </Link>
+        <StartNowButton />
         <div>
           <Text size='xs' mt="sm" c="violet">Powered by <Anchor underline='always' href='https://supabase.com' target='_blank'>Supabase</Anchor> & <Anchor underline='always' href='https://openai.com' target='_blank'>OpenAI</Anchor></Text>
         </div>

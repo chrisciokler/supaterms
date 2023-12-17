@@ -1,7 +1,5 @@
-import { Steps } from '@/components/Steps';
-import { SubscriptionForm } from '@/components/forms/SubscriptionForm';
-import { Title, Text, Button, Center, TextInput, Anchor } from '@mantine/core'
-import { IconAt } from "@tabler/icons-react";
+"use client"
+import { Button } from '@mantine/core'
 import Link from 'next/link';
 import { useAuthStore } from './layouts/AppInitializer';
 
