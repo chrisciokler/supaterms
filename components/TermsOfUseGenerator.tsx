@@ -238,14 +238,14 @@ export function TermsOfUseGenerator() {
           </Group>
         </Radio.Group>
 
-        {(form.values.subscriptions === 'Yes' || form.values.buygoods === 'Yes') && (
-          <Radio.Group size="md" label="Do you offer refunds?" withAsterisk {...form.getInputProps('refunds')}>
-            <Group mt="xs">
-              <Radio value="Yes" label="Yes" />
-              <Radio value="No" label="No" />
-            </Group>
-          </Radio.Group>
-        )}
+        {/* {(form.values.subscriptions === 'Yes' || form.values.buygoods === 'Yes') && ( */}
+        <Radio.Group size="md" label="Do you offer refunds?" withAsterisk {...form.getInputProps('refunds')}>
+          <Group mt="xs">
+            <Radio value="Yes" label="Yes" />
+            <Radio value="No" label="No" />
+          </Group>
+        </Radio.Group>
+        {/* )} */}
 
         {form.values.refunds === 'Yes' && (
           <Select
