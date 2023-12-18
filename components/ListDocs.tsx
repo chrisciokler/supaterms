@@ -54,7 +54,7 @@ export function ListDocs() {
 
             <SimpleGrid
               mt="xl"
-              cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 4 }}
+              cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 3, xl: 4 }}
               spacing={{ base: 10, sm: 'xl' }}
               verticalSpacing={{ base: 'md', sm: 'xl' }}
             >
