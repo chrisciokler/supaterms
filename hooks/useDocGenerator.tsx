@@ -19,6 +19,7 @@ const chatStore = create<ChatStoreProps>((set) => ({
 
 export const useDocGenerator = () => {
   const auth = useAuthStore(state => state.auth);
+  const token = useAuthStore(state => state.openaitoken);
   const message = chatStore(state => state.message);
   const setMessage = chatStore(state => state.setMessage);
 
@@ -29,6 +30,11 @@ export const useDocGenerator = () => {
   const generate = async (system: string, user: string) => {
     const id = auth?.user.id || ""
 
+    if (!token) {
+      errorNotification("Please set your OpenAI token in the account page.")
+      return;
+    }
+
     setMessages([
       { id, role: "system", content: system },
     ])
@@ -36,11 +42,11 @@ export const useDocGenerator = () => {
     await append({ id, role: "user", content: user })
   }
 
-  const errorNotification = () => {
+  const errorNotification = (message?: string) => {
     notifications.show({
       color: "red",
       title: 'Failure!!',
-      message: 'Something went wrong. Please try again.',
+      message: message ?? 'Something went wrong. Please try again.',
     })
   }
 
