@@ -24,6 +24,7 @@ export const ReadDocComponent = () => {
   return (
     <Stack className='flex w-full flex-1 p-4 h-full mt-20 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)]'>
       {content && <Message content={content} />}
+      {content && <Message content={content} />}
       {loading && <div className='flex flex-1 items-center justify-center'><Loader size={80} /></div>}
       <Space h={200} />
     </Stack>
