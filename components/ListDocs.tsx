@@ -43,6 +43,7 @@ export function ListDocs() {
         docs?.length === 0 ? <section className='flex flex-col min-h-screen items-center justify-center'>
           <h1 className='text-[40px] text-glow max-w-[750px] md:max-w-[280px] md:text-3xl font-extrabold text-center'>My Docs is empty.</h1>
           <CreateDocButton />
+
         </section>
 
           : <section className='flex flex-col w-full min-h-screen mt-16'>
