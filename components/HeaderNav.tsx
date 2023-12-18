@@ -23,7 +23,6 @@ export const HeaderNav = () => {
         <Link href="/docs" shallow ><Button variant='outline'>Docs</Button></Link>
         <Link href="/account" shallow ><Button variant='outline'>Account</Button></Link>
         <Button variant='filled' color='red' loading={loading} disabled={loading} onClick={signOutHandler}>Sign out</Button>
-        <Button variant='filled' color='red' loading={loading} disabled={loading} onClick={signOutHandler}>Sign out</Button>
       </div>) : (
         <Link href="/authenticate" shallow><Button variant="filled">Sign in</Button></Link>
       )
