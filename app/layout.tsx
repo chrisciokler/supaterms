@@ -48,9 +48,7 @@ export default async function RootLayout({
             <Notifications />
             <ModalsProvider>
               <RouterTransition />
-              <Header />
               {children}
-              <Footer />
             </ModalsProvider>
           </MantineProvider>
         </AppInitializer>

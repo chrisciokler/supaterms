@@ -1,3 +1,4 @@
+import { MessageArea } from '@/components/MessageArea';
 import { PrivacyPolicyGenerator } from '@/components/PrivacyPolicyGenerator';
 import { Steps } from '@/components/Steps';
 import { TermsOfUseGenerator } from '@/components/TermsOfUseGenerator';
@@ -18,12 +19,8 @@ export default function Privacy() {
         <Stack className='px-4 w-full h-full overflow-x-hidden overflow-y-auto border-r border-dark-700 mt-20 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)]'>
           <PrivacyPolicyGenerator />
         </Stack>
-        <Stack className='w-full h-full mt-20 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-x-hidden overflow-y-auto'>
-          <div className='flex flex-col w-full h-full items-center justify-center p-4'>
-            <IconBrain size={100} />
-            <h1 className='text-2xl mt-2 font-bold text-glow text-center'>Privacy Policy Generator</h1>
-            <Text size="sm" mt="xs" c="dimmed">Powered by OpenAI</Text>
-          </div>
+        <Stack className='flex w-full flex-1 p-4 h-full mt-20 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-x-hidden overflow-y-auto'>
+          <MessageArea />
         </Stack>
 
 

@@ -1,5 +1,7 @@
 "use client"
 import { useDocGenerator } from '@/hooks/useDocGenerator';
+import { Text } from '@mantine/core';
+import { IconBrain } from '@tabler/icons-react';
 import { FC, memo } from 'react';
 import ReactMarkdown, { Options } from 'react-markdown';
 
@@ -63,6 +65,16 @@ export const MessageArea = () => {
   const { message } = useDocGenerator();
 
   return (
-    <Message content={message} />
+    <>
+      {
+        message.length > 0 ?
+          <Message content={message} />
+          : <div className='flex flex-col w-full h-full items-center justify-center p-4'>
+            <IconBrain size={100} />
+            <h1 className='text-2xl mt-2 font-bold text-glow text-center'>Legal Docs Generator</h1>
+            <Text size="sm" mt="xs" c="dimmed">Powered by OpenAI</Text>
+          </div>
+      }
+    </>
   )
 }

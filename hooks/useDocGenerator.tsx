@@ -1,4 +1,5 @@
 "use client"
+import { api } from '@/apis';
 import { useAuthStore } from '@/components/layouts/AppInitializer';
 import { useDidUpdate } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
@@ -21,7 +22,7 @@ export const useDocGenerator = () => {
   const message = chatStore(state => state.message);
   const setMessage = chatStore(state => state.setMessage);
 
-  const { messages, setMessages, append, isLoading, stop, error } = useChat({
+  const { messages, setMessages, append, isLoading, stop, error, data } = useChat({
     api: '/api/chat'
   })
 
@@ -50,6 +51,19 @@ export const useDocGenerator = () => {
       }
     }
   }, [messages])
+
+  useDidUpdate(() => {
+    if (!isLoading) {
+      saveMessage()
+    }
+  }, [isLoading])
+
+  const saveMessage = async () => {
+    const params = new URLSearchParams(window.location.search)
+    const id = params.get("id")
+    id && await api.db.updateDoc(id, { content: message })
+  }
+
 
   useDidUpdate(() => {
     if (error) errorNotification()

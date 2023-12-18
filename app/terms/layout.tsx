@@ -5,7 +5,7 @@ import { AppStack } from '@/components/layouts/AppStack'
 
 
 export const metadata: Metadata = {
-  title: 'Docs | SupaTerms',
+  title: 'Terms & Conditions Generator | SupaTerms',
   description: 'AI generated Privacy Policies and Terms & Conditions',
 }
 
@@ -21,7 +21,7 @@ export default async function DocsLayout({
 
   return (
     <>
-      <AppStack>
+      <AppStack footer={false}>
         {children}
       </AppStack>
     </>

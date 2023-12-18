@@ -3,7 +3,7 @@ import endent from 'endent';
 
 export const termsPolicyAssistant = endent`You are a legal expert. 
   Generate a complete, highly detailed and professional Terms & Conditions Policy using the questions and answers submitted by the user. 
-  The policy must have 2000 words at minimum.
+  The policy must have 2000 words at minimum, remember no less than 2000 words.
 `;
 
 export const termsPolicyTemplate = (data: TermsProps) => endent`

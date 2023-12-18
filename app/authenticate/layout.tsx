@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { getSRRAuth } from '../layout'
 import { redirect } from 'next/navigation'
+import { AppStack } from '@/components/layouts/AppStack'
 
 
 export const metadata: Metadata = {
@@ -20,7 +21,9 @@ export default async function LoginLayout({
 
   return (
     <>
-      {children}
+      <AppStack>
+        {children}
+      </AppStack>
     </>
   )
 }

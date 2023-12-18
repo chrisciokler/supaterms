@@ -410,7 +410,7 @@ export function TermsOfUseGenerator() {
         <Space h={100} />
       </Stack>
 
-      <Button type='submit' pos="fixed" bottom={16} right={16} className='glow'>Generate Policy</Button>
+      <Button type='submit' pos="fixed" bottom={16} right={16} className='glow' loading={isLoading} disabled={isLoading}>Generate Policy</Button>
     </form>
 
   )

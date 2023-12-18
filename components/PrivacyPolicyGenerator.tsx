@@ -8,6 +8,7 @@ import { useState, useRef, useCallback } from "react";
 import { PhoneInput } from './PhoneInput';
 import { countries } from '@/constants';
 import { useRouter } from 'next/navigation';
+import { useDocGenerator } from '@/hooks/useDocGenerator';
 
 type Platform = 'website' | 'app';
 export type PrivacyProps = {
@@ -92,13 +93,9 @@ const BacktoDocsButton = () => {
 export function PrivacyPolicyGenerator() {
   const stopConversationRef = useRef<boolean>(false);
   const form = useForm({ initialValues });
+  const { generate, isLoading } = useDocGenerator()
   const [refunds, setRefunds] = useState(refundsdata);
-  const [isloading, setLoading] = useState(false);
   const [istyping, setIsTyping] = useState(false);
-
-  const toggle = (value: boolean) => {
-    setLoading(value);
-  };
 
   const typing = (value: boolean) => {
     setIsTyping(value);
@@ -113,67 +110,10 @@ export function PrivacyPolicyGenerator() {
 
   const handleSubmit = useCallback(
     async (user: string) => {
-      // let content = '';
-      // const system = termsPolicyAssistant;
+      const system = privacyPolicyTemplate(form.values);
 
-      // toggle(true);
+      await generate(system, user)
 
-      // try {
-      //   const controller = new AbortController();
-      //   const response = await api.ai.AUTOCOMPLETION16K({ user, system }, controller);
-
-      //   if (!response.ok) {
-      //     toggle(false);
-      //     return;
-      //   }
-
-      //   const data = response.body;
-
-      //   if (!data) {
-      //     toggle(false);
-      //     return;
-      //   }
-
-      //   toggle(false);
-
-      //   const reader = data.getReader();
-      //   const decoder = new TextDecoder();
-      //   let done = false;
-      //   let startText = '';
-      //   let didHandleHeader = false;
-
-      //   typing(true);
-
-      //   while (!done) {
-      //     if (stopConversationRef.current === true) {
-      //       controller.abort();
-      //       done = true;
-      //       break;
-      //     }
-
-      //     const { value, done: doneReading } = await reader.read();
-      //     done = doneReading;
-      //     const chunkValue = decoder.decode(value);
-      //     if (!didHandleHeader) {
-      //       startText = startText + chunkValue;
-      //       if (startText.includes(STREAM_SEPARATOR)) {
-      //         const parts = startText.split(STREAM_SEPARATOR);
-
-      //         content = content + parts[1];
-      //         textResponse.value = content;
-      //         didHandleHeader = true;
-      //       }
-      //     } else {
-      //       content = content + chunkValue;
-      //       textResponse.value = content;
-      //     }
-      //   }
-      // } catch (e) {
-      //   console.error('Error', e);
-      // }
-
-      // toggle(false);
-      // typing(false);
     },
     [form.values]
   );
@@ -402,7 +342,7 @@ export function PrivacyPolicyGenerator() {
         <Space h={100} />
       </Stack>
 
-      <Button pos="fixed" bottom={16} right={16} className='glow'>Generate Policy</Button>
+      <Button type='submit' pos="fixed" bottom={16} right={16} className='glow' loading={isLoading} disabled={isLoading}>Generate Policy</Button>
     </form>
 
   )

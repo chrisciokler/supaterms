@@ -20,16 +20,8 @@ export default function Terms() {
           <TermsOfUseGenerator />
         </Stack>
         <Stack className='flex w-full flex-1 p-4 h-full mt-20 min-h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-x-hidden overflow-y-auto'>
-          {/* <div className='flex flex-col w-full h-full items-center justify-center p-4'>
-            <IconBrain size={100} />
-            <h1 className='text-2xl mt-2 font-bold text-glow text-center'>Terms of Use Generator</h1>
-            <Text size="sm" mt="xs" c="dimmed">Powered by OpenAI</Text>
-          </div> */}
-
           <MessageArea />
         </Stack>
-
-
       </SimpleGrid>
 
     </main >
